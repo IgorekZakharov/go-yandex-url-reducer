@@ -7,14 +7,14 @@ import (
 )
 
 var LocalHostValue string = "http://localhost:8080/"
-var UrlDict = make(map[string]string)
+var URLDict = make(map[string]string)
 
 func GetHandler(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Path
 	idSlice := []byte(id)
 	idSlice = idSlice[1:]
 
-	val, ok := UrlDict[string(idSlice)]
+	val, ok := URLDict[string(idSlice)]
 	if !ok {
 		http.Error(w, "Original URL for this ID not found", http.StatusBadRequest)
 		return
@@ -30,10 +30,10 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), 500)
 		return
 	}
-	ShortUrlResult := LocalHostValue + string(Shorter(b))
+	ShortURLResult := LocalHostValue + string(Shorter(b))
 	w.WriteHeader(http.StatusCreated)
 	w.Header().Set("Content-Type", "application/json")
-	w.Write([]byte(ShortUrlResult))
+	w.Write([]byte(ShortURLResult))
 }
 
 func Shorter(url []byte) []byte {
@@ -48,7 +48,7 @@ func Shorter(url []byte) []byte {
 		}
 	}
 	str := string(b)
-	UrlDict[str] = string(url)
+	URLDict[str] = string(url)
 	return b
 }
 
