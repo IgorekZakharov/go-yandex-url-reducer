@@ -6,8 +6,8 @@ import (
 	"net/http"
 )
 
-var LocalHostValue string = "http://localhost:8080/"
 var URLDict = make(map[string]string)
+var LocalHostValue string = "http://localhost:8080/"
 
 func GetHandler(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Path
